@@ -5,14 +5,26 @@ const arrayDayWeek = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira"
 
 const dialogPonto = document.getElementById("dialog-ponto");
 
-navigator.geolacation.getCurrentPosition((position) => {
+navigator.geolocation.getCurrentPosition((position) => {
     console.log(position);
     console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
+    console.log(position.coords.longitude);                                                                  
 });
 
+let proxPonto = {
+"Entrada": "Intervalo",
+    "Intervalo": "Volta-Intervalo",
+    "Saida": "Entrada"
+
+}
 const btnRegistrarPonto = document.getElementById("btn-registrar-ponto");
 btnRegistrarPonto.addEventListener("click", () => {
+
+    let dialogSelect = document.getElementById("select-tipos-ponto"); 
+    let ultimoPonto = localStorage.getItem("tipoUltimoPonto");
+
+    dialogSelect.value = proxPonto[ultimoPonto];
+
     dialogPonto.showModal();
 });
 
@@ -21,11 +33,25 @@ btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
 })
 
-const btnDialogResgistrarPonto = document.getElementById("btn-dialog-registrar-ponto");
-btnDialogResgistrarPonto.addEventListener("click", () => {
-    //To-Do
-    //1. Recuperar o elemento select pelo id(select-tipos-ponto)
-    //2. Imprimir no console o valor(atributo value) do elemento select
+function salvarRegistroLocalStorang
+
+const btnDialogRegistrarPonto = document.getElementById("btn-dialog-registrar-ponto");
+btnDialogRegistrarPonto.addEventListener("click", () => {
+    let data = dataCompleta();
+    let hora = horaCompleta();
+    let tipoPonto = document.getElementById("select-tipos-ponto").value;
+    
+    let ponto = {
+        "data": data,
+        "hora": hora,
+        "tipo": tipoPonto,
+        "id": 1
+    }
+
+    localStorage.setItem("registro", JSON.stringify(ponto));
+    localStorage.setItem("tipoUltimoPonto", tipoPonto);
+
+    console.log(ponto);
 });
 
 
